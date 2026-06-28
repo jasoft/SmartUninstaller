@@ -1,0 +1,41 @@
+<UserControl x:Class="SmartUninstaller.UI.Views.BrowserExtensionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:SmartUninstaller.UI.Converters">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="浏览器扩展" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ExtensionCount, StringFormat=' ({0} 个)'}" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Margin="8,0,0,0"/>
+            <Button Content="🔄 扫描" Command="{Binding ScanCommand}" Margin="20,0,0,0" Padding="10,5" Cursor="Hand"/>
+        </StackPanel>
+
+        <!-- 浏览器筛选 -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <RadioButton Content="全部" IsChecked="True" Command="{Binding FilterAllCommand}" Margin="0,0,10,0"/>
+            <RadioButton Content="Chrome" Command="{Binding FilterChromeCommand}" Margin="0,0,10,0"/>
+            <RadioButton Content="Edge" Command="{Binding FilterEdgeCommand}" Margin="0,0,10,0"/>
+            <RadioButton Content="Firefox" Command="{Binding FilterFirefoxCommand}" Margin="0,0,10,0"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding FilteredExtensions}" AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectedItem="{Binding SelectedExtension}" BorderBrush="#E0E0E0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="名称" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="浏览器" Binding="{Binding Browser}" Width="80"/>
+                <DataGridTextColumn Header="版本" Binding="{Binding Version}" Width="80"/>
+                <DataGridTextColumn Header="描述" Binding="{Binding Description}" Width="300"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsEnabled}" Header="启用" Width="50"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsSuspicious}" Header="可疑" Width="50"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,41 @@
+<UserControl x:Class="SmartUninstaller.UI.Views.BackupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:SmartUninstaller.UI.Converters">
+    <UserControl.Resources>
+        <converters:FileSizeConverter x:Key="FileSizeConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="备份管理" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding BackupCount, StringFormat=' ({0} 个)'}" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Margin="8,0,0,0"/>
+            <Button Content="🔄 刷新" Command="{Binding RefreshCommand}" Margin="20,0,0,0" Padding="10,5" Cursor="Hand"/>
+            <Button Content="📂 打开备份目录" Command="{Binding OpenBackupDirCommand}" Margin="10,0,0,0" Padding="10,5" Cursor="Hand"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding BackupList}" AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectedItem="{Binding SelectedBackup}" BorderBrush="#E0E0E0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="软件名称" Binding="{Binding SoftwareName}" Width="*"/>
+                <DataGridTextColumn Header="备份时间" Binding="{Binding BackupTime, StringFormat=yyyy-MM-dd HH:mm}" Width="150"/>
+                <DataGridTextColumn Header="大小" Binding="{Binding BackupSize, Converter={StaticResource FileSizeConverter}}" Width="100"/>
+                <DataGridTextColumn Header="类型" Binding="{Binding Type}" Width="80"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsRestored}" Header="已恢复" Width="60"/>
+                <DataGridTextColumn Header="路径" Binding="{Binding BackupPath}" Width="300"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="恢复备份" Command="{Binding RestoreCommand}"/>
+                    <MenuItem Header="删除备份" Command="{Binding DeleteCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="打开目录" Command="{Binding OpenDirCommand}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</UserControl>
