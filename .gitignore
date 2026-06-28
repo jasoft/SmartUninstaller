@@ -1,0 +1,30 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.vs/
+.vs/
+*.nupkg
+*.snupkg
+publish/
+installer/
+
+## IDE
+.idea/
+*.sln.iml
+
+## OS
+Thumbs.db
+.DS_Store
+
+## Build
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## Test Results
+TestResults/
+*.trx

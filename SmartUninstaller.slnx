@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SmartUninstaller.AI/SmartUninstaller.AI.csproj" />
+    <Project Path="src/SmartUninstaller.Core/SmartUninstaller.Core.csproj" />
+    <Project Path="src/SmartUninstaller.Data/SmartUninstaller.Data.csproj" />
+    <Project Path="src/SmartUninstaller.Shared/SmartUninstaller.Shared.csproj" />
+    <Project Path="src/SmartUninstaller.UI/SmartUninstaller.UI.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SmartUninstaller.AI.Tests/SmartUninstaller.AI.Tests.csproj" />
+    <Project Path="tests/SmartUninstaller.Core.Tests/SmartUninstaller.Core.Tests.csproj" />
+    <Project Path="tests/SmartUninstaller.IntegrationTests/SmartUninstaller.IntegrationTests.csproj" />
+    <Project Path="tests/SmartUninstaller.UI.Tests/SmartUninstaller.UI.Tests.csproj" />
+  </Folder>
+</Solution>

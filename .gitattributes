@@ -1,0 +1,18 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# C# sources
+*.cs text diff=csharp
+*.csx text diff=csharp
+*.sln text eol=crlf
+*.csproj text eol=crlf
+*.xaml text
+*.json text
+*.xml text
+*.md text
+
+# Binary
+*.dll binary
+*.exe binary
+*.pdb binary
+*.nupkg binary
