@@ -1,33 +1,40 @@
 using SmartUninstaller.Core.Interfaces;
 using SmartUninstaller.Core.Models;
 using SmartUninstaller.Core.Engines;
+using SmartUninstaller.Data.Entities;
+using SmartUninstaller.Data.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace SmartUninstaller.Core.Services;
 
 /// <summary>
-/// 卸载服务实现
+/// 卸载服务实现 - 自动记录卸载历史到SQLite
 /// </summary>
 public class UninstallService : IUninstallService
 {
     private readonly ILogger<UninstallService> _logger;
     private readonly UninstallEngine _uninstallEngine;
     private readonly PortableSoftwareEngine _portableEngine;
+    private readonly UninstallHistoryRepository _historyRepository;
 
     public UninstallService(
         ILogger<UninstallService> logger,
         UninstallEngine uninstallEngine,
-        PortableSoftwareEngine portableEngine)
+        PortableSoftwareEngine portableEngine,
+        UninstallHistoryRepository historyRepository)
     {
         _logger = logger;
         _uninstallEngine = uninstallEngine;
         _portableEngine = portableEngine;
+        _historyRepository = historyRepository;
     }
 
     /// <inheritdoc/>
     public async Task<UninstallResult> UninstallAsync(SoftwareInfo software, UninstallOptions options)
     {
-        return await _uninstallEngine.ExecuteUninstallAsync(software, options);
+        var result = await _uninstallEngine.ExecuteUninstallAsync(software, options);
+        await SaveHistoryAsync(software, result, "Normal");
+        return result;
     }
 
     /// <inheritdoc/>
@@ -35,7 +42,9 @@ public class UninstallService : IUninstallService
     {
         options.ForceUninstall = true;
         options.DeepClean = true;
-        return await _uninstallEngine.ExecuteUninstallAsync(software, options);
+        var result = await _uninstallEngine.ExecuteUninstallAsync(software, options);
+        await SaveHistoryAsync(software, result, "Force");
+        return result;
     }
 
     /// <inheritdoc/>
@@ -82,5 +91,37 @@ public class UninstallService : IUninstallService
             RiskDescription = software.IsRunning ? "软件正在运行，卸载前将自动关闭" : "可以安全卸载"
         };
         return Task.FromResult(estimate);
+    }
+
+    /// <summary>
+    /// 保存卸载历史到SQLite
+    /// </summary>
+    private async Task SaveHistoryAsync(SoftwareInfo software, UninstallResult result, string method)
+    {
+        try
+        {
+            var entity = new UninstallHistoryEntity
+            {
+                SoftwareName = software.Name,
+                SoftwareVersion = software.Version,
+                Publisher = software.Publisher,
+                InstallPath = software.InstallPath,
+                UninstallTime = result.EndTime,
+                Success = result.Success,
+                FilesDeleted = result.FilesDeleted,
+                RegistryEntriesDeleted = result.RegistryEntriesDeleted,
+                SpaceFreed = result.SpaceFreed,
+                DurationMs = (long)result.Duration.TotalMilliseconds,
+                ErrorMessage = result.ErrorMessage,
+                UninstallMethod = method
+            };
+
+            await _historyRepository.AddAsync(entity);
+            _logger.LogInformation("卸载历史已保存: {Name}", software.Name);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "保存卸载历史失败: {Name}", software.Name);
+        }
     }
 }

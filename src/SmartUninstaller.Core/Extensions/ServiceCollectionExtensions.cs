@@ -1,8 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SmartUninstaller.Core.Interfaces;
 using SmartUninstaller.Core.Services;
 using SmartUninstaller.Core.Engines;
 using SmartUninstaller.Core.Utils;
+using SmartUninstaller.Data.Context;
+using SmartUninstaller.Data.Repositories;
 
 namespace SmartUninstaller.Core.Extensions;
 
@@ -18,6 +21,15 @@ public static class ServiceCollectionExtensions
     /// <returns>服务集合</returns>
     public static IServiceCollection AddSmartUninstallerCore(this IServiceCollection services)
     {
+        // 数据层
+        services.AddSingleton<AppDbContext>(sp =>
+        {
+            var context = new AppDbContext();
+            context.EnsureDatabaseCreated();
+            return context;
+        });
+        services.AddSingleton<UninstallHistoryRepository>();
+
         // 注册服务
         services.AddScoped<IUninstallService, UninstallService>();
         services.AddScoped<IScanService, ScanService>();

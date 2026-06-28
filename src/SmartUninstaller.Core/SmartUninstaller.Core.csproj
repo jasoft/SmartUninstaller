@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartUninstaller.Shared\SmartUninstaller.Shared.csproj" />
+    <ProjectReference Include="..\SmartUninstaller.Data\SmartUninstaller.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
