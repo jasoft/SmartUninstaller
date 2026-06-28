@@ -21,6 +21,9 @@ public static class ServiceCollectionExtensions
     /// <returns>服务集合</returns>
     public static IServiceCollection AddSmartUninstallerCore(this IServiceCollection services)
     {
+                // 日志
+        services.AddLogging();
+
         // 数据层
         services.AddSingleton<AppDbContext>(sp =>
         {

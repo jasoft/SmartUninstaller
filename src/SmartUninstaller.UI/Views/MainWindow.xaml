@@ -4,7 +4,7 @@
         xmlns:viewModels="clr-namespace:SmartUninstaller.UI.ViewModels"
         Title="SmartUninstaller" Height="800" Width="1200"
         WindowStartupLocation="CenterScreen"
-        Background="White">
+        Background="{DynamicResource BackgroundBrush}">
     <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>
@@ -12,29 +12,51 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="{DynamicResource PrimaryBrush}" Padding="10">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="SmartUninstaller" FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
-                <Button Content="设置" Style="{DynamicResource FlatButton}" Command="{Binding OpenSettingsCommand}" Margin="20,0,0,0" />
-                <Button Content="关于" Style="{DynamicResource FlatButton}" Command="{Binding OpenAboutCommand}" Margin="5,0,0,0" />
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="SmartUninstaller" FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button Content="设置" Style="{DynamicResource FlatButton}" Command="{Binding OpenSettingsCommand}" Margin="5,0" />
+                    <Button Content="关于" Style="{DynamicResource FlatButton}" Command="{Binding OpenAboutCommand}" Margin="5,0" />
+                </StackPanel>
+            </Grid>
         </Border>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Background="#1976D2">
-                <RadioButton Content="已安装软件" Style="{DynamicResource NavigationRadioButton}" IsChecked="True" Command="{Binding NavigateToInstalledCommand}" />
-                <RadioButton Content="便携软件" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToPortableCommand}" />
-                <RadioButton Content="残留清理" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToLeftoversCommand}" />
-                <RadioButton Content="浏览器扩展" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToExtensionsCommand}" />
-                <RadioButton Content="Windows应用" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToWindowsAppsCommand}" />
-                <RadioButton Content="备份管理" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToBackupCommand}" />
-                <RadioButton Content="系统清理" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToCleanupCommand}" />
-            </StackPanel>
+            <Border Grid.Column="0" Background="{DynamicResource PrimaryBrush}">
+                <StackPanel>
+                    <RadioButton Content="已安装软件" Style="{DynamicResource NavigationRadioButton}" IsChecked="True" Command="{Binding NavigateToInstalledCommand}" />
+                    <RadioButton Content="便携软件" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToPortableCommand}" />
+                    <RadioButton Content="残留清理" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToLeftoversCommand}" />
+                    <RadioButton Content="浏览器扩展" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToExtensionsCommand}" />
+                    <RadioButton Content="Windows应用" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToWindowsAppsCommand}" />
+                    <RadioButton Content="备份管理" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToBackupCommand}" />
+                    <RadioButton Content="系统清理" Style="{DynamicResource NavigationRadioButton}" Command="{Binding NavigateToCleanupCommand}" />
+                </StackPanel>
+            </Border>
             <ContentControl Grid.Column="1" Content="{Binding CurrentView}" />
         </Grid>
+        <Border Grid.Row="2" Background="{DynamicResource SecondaryBrush}" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding StatusMessage}" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="版本 1.0.0" VerticalAlignment="Center" />
+            </Grid>
+        </Border>
     </Grid>
 </Window>
