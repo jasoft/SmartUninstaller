@@ -37,7 +37,7 @@ public partial class SystemCleanupViewModel : ObservableObject
 {
     private readonly ICleanupService _cleanupService;
 
-    public ObservableCollection<CleanupItem> CleanupItems { get; } = [];
+    public ObservableCollection<CleanupItem> CleanupItems { get; } = new();
 
     [ObservableProperty]
     private long _totalCleanableSize;

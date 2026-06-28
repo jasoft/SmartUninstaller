@@ -66,7 +66,7 @@ public class UninstallResult
     /// <summary>错误信息</summary>
     public string? ErrorMessage { get; set; }
     /// <summary>详细日志</summary>
-    public List<string> Logs { get; set; } = [];
+    public List<string> Logs { get; set; } = new();
 }
 
 /// <summary>
@@ -81,7 +81,7 @@ public class BatchUninstallResult
     /// <summary>失败卸载数量</summary>
     public int FailedCount { get; set; }
     /// <summary>各软件卸载结果</summary>
-    public List<UninstallResult> Results { get; set; } = [];
+    public List<UninstallResult> Results { get; set; } = new();
     /// <summary>总释放空间</summary>
     public long TotalSpaceFreed { get; set; }
     /// <summary>总耗时</summary>

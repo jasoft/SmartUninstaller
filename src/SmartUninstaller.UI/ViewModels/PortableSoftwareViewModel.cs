@@ -15,7 +15,7 @@ public partial class PortableSoftwareViewModel : ObservableObject
     private readonly IUninstallService _uninstallService;
     private readonly IScanService _scanService;
 
-    public ObservableCollection<SelectableSoftware> SoftwareList { get; } = [];
+    public ObservableCollection<SelectableSoftware> SoftwareList { get; } = new();
 
     [ObservableProperty]
     private SelectableSoftware? _selectedSoftware;

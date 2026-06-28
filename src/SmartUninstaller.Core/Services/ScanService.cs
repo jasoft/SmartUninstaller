@@ -280,7 +280,7 @@ public class ScanService : IScanService
     public async Task<IEnumerable<SoftwareInfo>> SearchSoftwareAsync(string keyword)
     {
         if (string.IsNullOrWhiteSpace(keyword))
-            return [];
+            return Array.Empty<SoftwareInfo>();
 
         _logger.LogInformation("搜索软件: {Keyword}", keyword);
         var allSoftware = await _scanEngine.ScanInstalledSoftwareAsync();

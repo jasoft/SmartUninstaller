@@ -154,13 +154,13 @@ public class AILeftoverDetectionService
     {
         if (string.IsNullOrEmpty(path)) return false;
         string[] commonDirs =
-        [
+        new[] {
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             @"C:\Windows\Temp"
-        ];
+        };
         return commonDirs.Any(dir => path.StartsWith(dir, StringComparison.OrdinalIgnoreCase));
     }
 

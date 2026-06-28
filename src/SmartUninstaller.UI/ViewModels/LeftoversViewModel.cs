@@ -42,7 +42,7 @@ public partial class LeftoversViewModel : ObservableObject
     private readonly IScanService _scanService;
     private readonly ICleanupService _cleanupService;
 
-    public ObservableCollection<SelectableLeftover> LeftoverList { get; } = [];
+    public ObservableCollection<SelectableLeftover> LeftoverList { get; } = new();
 
     [ObservableProperty]
     private SelectableLeftover? _selectedLeftover;

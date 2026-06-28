@@ -14,7 +14,7 @@ public partial class BackupViewModel : ObservableObject
 {
     private readonly IBackupService _backupService;
 
-    public ObservableCollection<BackupRecord> BackupList { get; } = [];
+    public ObservableCollection<BackupRecord> BackupList { get; } = new();
 
     [ObservableProperty]
     private BackupRecord? _selectedBackup;

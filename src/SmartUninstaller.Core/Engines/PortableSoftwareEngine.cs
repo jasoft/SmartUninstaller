@@ -13,18 +13,17 @@ public class PortableSoftwareEngine
     private readonly FileHelper _fileHelper;
 
     private readonly string[] _portableSoftwareDirectories;
-    private readonly string[] _portableSoftwareIndicators =
-    [
+    private readonly string[] _portableSoftwareIndicators = new[] {
         "portable.dat", "AppName.portable", ".portable",
         "portableapps.ini", "settings.ini", "config.ini"
-    ];
+    };
 
     public PortableSoftwareEngine(ILogger<PortableSoftwareEngine> logger, FileHelper fileHelper)
     {
         _logger = logger;
         _fileHelper = fileHelper;
         _portableSoftwareDirectories =
-        [
+        new[] {
             Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads"),
@@ -32,7 +31,7 @@ public class PortableSoftwareEngine
             @"C:\PortableApps",
             @"D:\PortableApps",
             @"E:\PortableApps"
-        ];
+        };
     }
 
     /// <summary>

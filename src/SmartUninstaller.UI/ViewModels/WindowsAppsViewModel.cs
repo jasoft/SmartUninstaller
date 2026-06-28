@@ -15,7 +15,7 @@ public partial class WindowsAppsViewModel : ObservableObject
     private readonly IUninstallService _uninstallService;
     private readonly IScanService _scanService;
 
-    public ObservableCollection<SelectableSoftware> AppList { get; } = [];
+    public ObservableCollection<SelectableSoftware> AppList { get; } = new();
 
     [ObservableProperty]
     private SelectableSoftware? _selectedApp;

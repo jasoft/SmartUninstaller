@@ -44,10 +44,10 @@ public partial class InstalledSoftwareViewModel : ObservableObject
     private readonly IUninstallService _uninstallService;
     private readonly IScanService _scanService;
 
-    public ObservableCollection<SelectableSoftware> SoftwareList { get; } = [];
+    public ObservableCollection<SelectableSoftware> SoftwareList { get; } = new();
 
     [ObservableProperty]
-    private ObservableCollection<SelectableSoftware> _filteredSoftwareList = [];
+    private ObservableCollection<SelectableSoftware> _filteredSoftwareList = new();
 
     [ObservableProperty]
     private SelectableSoftware? _selectedSoftware;

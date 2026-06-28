@@ -13,10 +13,10 @@ public partial class BrowserExtensionsViewModel : ObservableObject
 {
     private readonly IScanService _scanService;
 
-    public ObservableCollection<BrowserExtension> AllExtensions { get; } = [];
+    public ObservableCollection<BrowserExtension> AllExtensions { get; } = new();
 
     [ObservableProperty]
-    private ObservableCollection<BrowserExtension> _filteredExtensions = [];
+    private ObservableCollection<BrowserExtension> _filteredExtensions = new();
 
     [ObservableProperty]
     private BrowserExtension? _selectedExtension;

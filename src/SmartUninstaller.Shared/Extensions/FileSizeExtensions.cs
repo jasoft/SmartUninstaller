@@ -12,7 +12,7 @@ public static class FileSizeExtensions
     /// <returns>格式化后的字符串</returns>
     public static string ToFileSizeString(this long bytes)
     {
-        string[] suffixes = ["B", "KB", "MB", "GB", "TB"];
+        string[] suffixes = new[] { "B", "KB", "MB", "GB", "TB" };
         int order = 0;
         double size = bytes;
 

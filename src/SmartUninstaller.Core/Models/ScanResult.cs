@@ -12,9 +12,9 @@ public class ScanResult
     /// <summary>扫描耗时</summary>
     public TimeSpan Duration => EndTime - StartTime;
     /// <summary>发现的软件列表</summary>
-    public List<SoftwareInfo> SoftwareList { get; set; } = [];
+    public List<SoftwareInfo> SoftwareList { get; set; } = new();
     /// <summary>发现的残留列表</summary>
-    public List<LeftoverInfo> Leftovers { get; set; } = [];
+    public List<LeftoverInfo> Leftovers { get; set; } = new();
     /// <summary>扫描阶段</summary>
     public string CurrentStage { get; set; } = string.Empty;
     /// <summary>是否已完成</summary>

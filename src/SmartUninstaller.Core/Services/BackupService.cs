@@ -177,7 +177,7 @@ public class BackupService : IBackupService
         {
             _logger.LogWarning(ex, "加载备份记录失败，使用空列表");
         }
-        return [];
+        return new List<BackupRecord>();
     }
 
     /// <summary>

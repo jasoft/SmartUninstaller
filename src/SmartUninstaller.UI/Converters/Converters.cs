@@ -52,7 +52,7 @@ public class FileSizeConverter : IValueConverter
     {
         if (value is long bytes)
         {
-            string[] suffixes = ["B", "KB", "MB", "GB", "TB"];
+            string[] suffixes = new[] { "B", "KB", "MB", "GB", "TB" };
             int order = 0;
             double size = bytes;
 
